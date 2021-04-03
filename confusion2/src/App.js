@@ -20,11 +20,12 @@ class App extends Component {
       <div className="App">
         <Navbar dark color="primary">
           <div className="container">
-            <NavbarBrand href="/">Fusion</NavbarBrand>
+            <NavbarBrand href="/">Ristorante Con Fusion</NavbarBrand>
           </div>                     
         </Navbar>
+        {/* <img src={logo} className="App-logo" alt="logo" /> */}
         <Menu dishes = {this.state.dishes}/>
-        <img src={logo} className="App-logo" alt="logo" />
+        
       </div>
     );
   }
