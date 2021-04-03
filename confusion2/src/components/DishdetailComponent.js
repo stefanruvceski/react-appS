@@ -29,9 +29,7 @@ class Dishdetail extends Component{
                 </ul>
             );
         else
-            return(
-                <div></div>
-            );
+            return this.renderEmptyDiv()
     }
 
     renderDish(dish){
