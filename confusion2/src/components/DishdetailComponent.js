@@ -1,18 +1,10 @@
-import React, { Component} from 'react'
-import {Card, CardImg, 
-    CardText, CardBody, CardTitle} from 'reactstrap'
-    import '../App.css';
-    import moment from 'moment'
+import {Card, CardImg, CardText, CardBody, CardTitle} from 'reactstrap'
+import '../App.css';
+import moment from 'moment'
 
-class Dishdetail extends Component{
+
     
-    //kad god se deklasire nova komponenta uvek mora
-    //konstruktor i props ka superklasi
-    // constructor(props){
-    //     super(props);
-    // }
-
-    renderComments(comments) {
+    function RenderComments({comments}) {
         const comm = comments.map((c)=>{
             return(
                 <li key={c.id} >
@@ -32,7 +24,7 @@ class Dishdetail extends Component{
             return this.renderEmptyDiv()
     }
 
-    renderDish(dish){
+    function RenderDish({dish}){
         return(
             <Card>
                 <CardImg width="100%" src={dish.image} alt={dish.name}/>
@@ -44,33 +36,39 @@ class Dishdetail extends Component{
         );
     }
 
-    renderDishAndComments(dish){
+    function RenderDishAndComments({dish}){
         return(
-            <div className="row">
-                <div className="col-12 col-md-5 m-1">
-                    {this.renderDish(dish)}
-                </div>
-                <div className="col-12 col-md-5 m-1" >
-                    <h4 className="bold">Comments</h4>
-                    {this.renderComments(dish.comments)}
+            <div className="container text-left">
+                <div className="row">
+                    <div className="col-12 col-md-5 m-1">
+                        <RenderDish dish={dish}/>
+                    </div>
+                    <div className="col-12 col-md-5 m-1" >
+                        <h4 className="bold">Comments</h4>
+                        <RenderComments comments = {dish.comments}/>
+                    </div>
                 </div>
             </div>
         );
     }
 
-    renderEmptyDiv(){
+    function RenderEmptyDiv(){
         return(<div></div>);
     }
 
-    render(){
-        if(this.props.dish != null){
-            return this.renderDishAndComments(this.props.dish)
+    const DishDetail = (props)=>{
+        if(props.dish != null){
+            return(
+                <RenderDishAndComments dish={props.dish}/> //return this.renderDishAndComments(this.props.dish)
+            );
         }
         else{
-            return this.renderEmptyDiv()
+            return(
+                <RenderEmptyDiv/>//return this.renderEmptyDiv()
+            );
         }
     }
 
-}
 
-export default Dishdetail
+
+export default DishDetail
