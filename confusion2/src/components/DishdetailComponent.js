@@ -1,4 +1,5 @@
-import {Card, CardImg, CardText, CardBody, CardTitle} from 'reactstrap'
+import {Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb,BreadcrumbItem} from 'reactstrap'
+import {Link} from 'react-router-dom'
 import '../App.css';
 import moment from 'moment'
 
@@ -36,16 +37,29 @@ import moment from 'moment'
         );
     }
 
-    function RenderDishAndComments({dish}){
+    function RenderDishAndComments({dish,comments}){
+        console.log(dish)
         return(
             <div className="container text-left">
+                <Breadcrumb>
+                    <BreadcrumbItem>
+                        <Link to="/menu">Menu</Link>
+                    </BreadcrumbItem>
+                    <BreadcrumbItem>
+                        <Link active >{dish.name}</Link>
+                    </BreadcrumbItem>
+                </Breadcrumb>
+                <div className="col-12">
+                    <h2>{dish.name}</h2>
+                    <hr/>
+                </div>
                 <div className="row">
                     <div className="col-12 col-md-5 m-1">
                         <RenderDish dish={dish}/>
                     </div>
                     <div className="col-12 col-md-5 m-1" >
                         <h4 className="bold">Comments</h4>
-                        <RenderComments comments = {dish.comments}/>
+                        <RenderComments comments = {comments}/>
                     </div>
                 </div>
             </div>
@@ -57,9 +71,10 @@ import moment from 'moment'
     }
 
     const DishDetail = (props)=>{
+        console.log(props.dish)
         if(props.dish != null){
             return(
-                <RenderDishAndComments dish={props.dish}/> //return this.renderDishAndComments(this.props.dish)
+                <RenderDishAndComments dish={props.dish} comments={props.comments}/> //return this.renderDishAndComments(this.props.dish)
             );
         }
         else{

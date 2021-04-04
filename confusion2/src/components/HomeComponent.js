@@ -1,4 +1,3 @@
-import React, { Component} from 'react';
 import {Card, CardImg, CardText, CardTitle,CardBody,CardSubtitle} from 'reactstrap'
 function RenderCard({item}){
     return(
@@ -16,7 +15,7 @@ function RenderCard({item}){
 
 function Home(props) {
     return(
-        <div class="container">
+        <div className="container">
             <div className="row align-items-start">
                 <div className="col-12 col-md m-1">
                     <RenderCard item={props.dish}/>

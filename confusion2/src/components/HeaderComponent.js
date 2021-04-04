@@ -34,22 +34,22 @@ class Header extends Component {
                             <Nav navbar>
                                 <NavItem>
                                     <NavLink className="nav-link" to="/home">
-                                        <span class="fa fa-home fa-lg"/>
+                                        <span className="fa fa-home fa-lg"/>
                                     </NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink className="nav-link" to="/about-us">
-                                        <span class="fa fa-info fa-lg"/>
+                                        <span className="fa fa-info fa-lg"/>
                                     </NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink className="nav-link" to="/menu">
-                                        <span class="fa fa-list fa-lg"/>
+                                        <span className="fa fa-list fa-lg"/>
                                     </NavLink>
                                 </NavItem>
                                 <NavItem>
                                     <NavLink className="nav-link" to="/contact-us">
-                                        <span class="fa fa-address-card fa-lg"/>
+                                        <span className="fa fa-address-card fa-lg"/>
                                     </NavLink>
                                 </NavItem>
                             </Nav>
