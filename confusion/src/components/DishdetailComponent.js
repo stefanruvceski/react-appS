@@ -52,8 +52,8 @@ class DishDetail extends Component{
     }
 
     handleSubmit(values){
-        console.log("Current state is : " + JSON.stringify(values))
-        alert("Current state is : " + JSON.stringify(values));
+        console.log("Current state is : " + JSON.stringify(values) + this.props.dishId)
+        this.props.addComment(this.props.dish.id, values.rating, values.name, values.comment);
         this.toggleModal();
     }
     toggleModal(){
@@ -85,7 +85,7 @@ class DishDetail extends Component{
                     </div>
                     <div className="col-12 col-md-5 m-1" >
                         <h4 className="bold">Comments</h4>
-                        <RenderComments comments = {this.props.comments}/>
+                        <RenderComments comments={this.props.comments}/>
                         <Button outline onClick={this.toggleModal}>
                             <span className="fa fa-edit fa-lg"/> Submit Comment 
                         </Button>
