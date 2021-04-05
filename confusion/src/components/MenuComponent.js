@@ -41,7 +41,8 @@ const Menu = (props) =>{
             </div>
             <div className="row">
                 {menu}
-            </div>                   
+            </div>     
+              
         </div>
     );
 
