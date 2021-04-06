@@ -2,7 +2,7 @@ import {Media } from 'reactstrap';
 
 function RenderLeader({leader}){
     return(
-        <Media tag="li">
+        <Media tag="li" >
             <Media left middle>
                 <Media object src={leader.image} alt={leader.name} />
             </Media>

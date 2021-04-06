@@ -1,9 +1,11 @@
-import React, { Component} from 'react'
+import React, { Component} from 'react';
 import {Card, Modal, Label, ModalBody, ModalHeader, CardImg, CardText, CardBody, CardTitle, Breadcrumb,BreadcrumbItem, Button} from 'reactstrap'
-import {Link} from 'react-router-dom'
-import {Control, LocalForm, Errors} from 'react-redux-form'
+import {Link} from 'react-router-dom';
+import {Control, LocalForm, Errors} from 'react-redux-form';
+import {Loading} from './LoadingComponent';
 import '../App.css';
 import moment from 'moment'
+import {baseUrl} from '../shared/baseUrl';
     
     function RenderComments({comments}) {
         const comm = comments.map((c)=>{
@@ -28,7 +30,7 @@ import moment from 'moment'
     function RenderDish({dish}){
         return(
             <Card>
-                <CardImg width="100%" src={dish.image} alt={dish.name}/>
+                <CardImg width="100%" src={baseUrl +dish.image} alt={dish.name}/>
                 <CardBody>
                     <CardTitle className="bold">{dish.name}</CardTitle>
                     <CardText>{dish.description}</CardText>
@@ -64,92 +66,110 @@ class DishDetail extends Component{
     }
 
     render(){
-        if(this.props.dish != null){
-        return(
-            <div className="container text-left">
-                <Breadcrumb>
-                    <BreadcrumbItem>
-                        <Link to="/menu">Menu</Link>
-                    </BreadcrumbItem>
-                    <BreadcrumbItem>
-                        <Link active="true" to="/" >{this.props.dish.name}</Link>
-                    </BreadcrumbItem>
-                </Breadcrumb>
-                <div className="col-12">
-                    <h2>{this.props.dish.name}</h2>
-                    <hr/>
-                </div>
-                <div className="row">
-                    <div className="col-12 col-md-5 m-1">
-                        <RenderDish dish={this.props.dish}/>
+        if(this.props.isLoading){
+            return(
+                <div className="container">
+                    <div className="row">
+                        <Loading/>
                     </div>
-                    <div className="col-12 col-md-5 m-1" >
-                        <h4 className="bold">Comments</h4>
-                        <RenderComments comments={this.props.comments}/>
-                        <Button outline onClick={this.toggleModal}>
-                            <span className="fa fa-edit fa-lg"/> Submit Comment 
-                        </Button>
-                    </div>
-                   
                 </div>
-                <Modal isOpen={this.state.isModalOpen} >
-                    <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
-                    <ModalBody>
-                    <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
-                        <div className="form-group">
-                            <Label htmlFor="rating" >Rating</Label>
-                            <Control.select model=".rating" name="rating" 
-                                className="form-control">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                            </Control.select>   
+            );
+        }
+        else if (this.props.errMessage){
+            return(
+                <div className="container">
+                    <div className="row">
+                        <h4>{this.props.errMessage}</h4>
+                    </div>
+                </div>
+            );
+        }
+        else if(this.props.dish != null){
+            return(
+                <div className="container text-left">
+                    <Breadcrumb>
+                        <BreadcrumbItem>
+                            <Link to="/menu">Menu</Link>
+                        </BreadcrumbItem>
+                        <BreadcrumbItem>
+                            <Link active="true" to="/" >{this.props.dish.name}</Link>
+                        </BreadcrumbItem>
+                    </Breadcrumb>
+                    <div className="col-12">
+                        <h2>{this.props.dish.name}</h2>
+                        <hr/>
+                    </div>
+                    <div className="row">
+                        <div className="col-12 col-md-5 m-1">
+                            <RenderDish dish={this.props.dish}/>
                         </div>
-                        <div className="form-group mt-2">
-                            <Label htmlFor="name" >Your Name</Label>
-                                <Control.text model=".name" id="name" name="name"
-                                    placeholder="Your Name" 
-                                    validators={{
-                                        required,
-                                        minLength: minLength(3),
-                                        maxLength: maxLength(15)
-                                    }}
-                                    placeholder="Name" 
-                                    className="form-control"
-                                />
-                                <Errors
-                                    className="text-danger"
-                                    model=".name"
-                                    show="touched"
-                                    messages={{
-                                        required: 'Required',
-                                        minLength: 'Must be grater that 2 characters',
-                                        maxLength: 'Must be 15 characters or less'
-                                    }}
-                                />
-                        </div>
-                        <div className="form-group mt-2">
-                            <Label htmlFor="comment" >Comment</Label>
-                            <Control.textarea model=".comment" id="comment" name="comment"
-                                rows="6"
-                                className="form-control"
-                            />
-                        </div>
-                        <div className="form-group mt-3">
-                            <Button type="submit" color="primary">
-                                Submit
+                        <div className="col-12 col-md-5 m-1" >
+                            <h4 className="bold">Comments</h4>
+                            <RenderComments comments={this.props.comments}/>
+                            <Button outline onClick={this.toggleModal}>
+                                <span className="fa fa-edit fa-lg"/> Submit Comment 
                             </Button>
                         </div>
-                               
-                        </LocalForm>
-                    </ModalBody>
-                </Modal>
+                    
+                    </div>
+                    <Modal isOpen={this.state.isModalOpen} >
+                        <ModalHeader toggle={this.toggleModal}>Submit Comment</ModalHeader>
+                        <ModalBody>
+                        <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+                            <div className="form-group">
+                                <Label htmlFor="rating" >Rating</Label>
+                                <Control.select model=".rating" name="rating" 
+                                    className="form-control">
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                </Control.select>   
+                            </div>
+                            <div className="form-group mt-2">
+                                <Label htmlFor="name" >Your Name</Label>
+                                    <Control.text model=".name" id="name" name="name"
+                                        placeholder="Your Name" 
+                                        validators={{
+                                            required,
+                                            minLength: minLength(3),
+                                            maxLength: maxLength(15)
+                                        }}
+                                        placeholder="Name" 
+                                        className="form-control"
+                                    />
+                                    <Errors
+                                        className="text-danger"
+                                        model=".name"
+                                        show="touched"
+                                        messages={{
+                                            required: 'Required',
+                                            minLength: 'Must be grater that 2 characters',
+                                            maxLength: 'Must be 15 characters or less'
+                                        }}
+                                    />
+                            </div>
+                            <div className="form-group mt-2">
+                                <Label htmlFor="comment" >Comment</Label>
+                                <Control.textarea model=".comment" id="comment" name="comment"
+                                    rows="6"
+                                    className="form-control"
+                                />
+                            </div>
+                            <div className="form-group mt-3">
+                                <Button type="submit" color="primary">
+                                    Submit
+                                </Button>
+                            </div>
+                                
+                            </LocalForm>
+                        </ModalBody>
+                    </Modal>
 
-            </div>
-            
-        );
+                </div>
+                
+            );
         }
         else{
             return(
