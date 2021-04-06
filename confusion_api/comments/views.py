@@ -14,14 +14,11 @@ def post_comment(request):
         body_unicode = request.body.decode('utf-8')
         content = json.loads(body_unicode)
         with open(os.path.abspath('comments\\comments_db.json')) as f:
-        
             data = json.loads(f.read())
             nextId = len(data['comments'])
-            
             content['id'] = nextId;
-             
             data['comments'].append(content)
-            print(content)
+
             json.dump(data, open(os.path.abspath('comments\\comments_db.json'), "w"), indent = 4)
             return JsonResponse(content)
         

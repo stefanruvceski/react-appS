@@ -1,15 +1,28 @@
 import React from 'react';
 import { Breadcrumb, BreadcrumbItem, Card, CardBody, CardHeader, Media } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import Leader from './LeaderComponent'
+import Leader from './LeaderComponent';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 function About(props) {
 
-    const leaders = props.leaders.map((leader) => {
+    const leaders = (props) => {
+        alert(props.leaders)
         return (
-            <Leader leader={leader}/>
+            <Stagger in>
+                {props.leaders.map((leader) => {
+                    return (
+                        <Fade in>
+                            <Leader leader={leader}/>
+                        </Fade>
+                    );
+                })}
+            </Stagger>
+           
         );
-    });
+
+        
+    }
 
     return(
         <div className="container">
@@ -67,7 +80,15 @@ function About(props) {
                 </div>
                 <div className="col-12">
                     <Media list>
-                        {leaders}
+                        <Stagger in>
+                            {props.leaders.map((leader) => {
+                                return (
+                                    <Fade in  key={leader.id}>
+                                        <Leader leader={leader}/>
+                                    </Fade>
+                                );
+                            })}
+                        </Stagger>
                     </Media>
                 </div>
             </div>
