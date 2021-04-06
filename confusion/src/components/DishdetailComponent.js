@@ -9,27 +9,22 @@ import {baseUrl} from '../shared/baseUrl';
 import { FadeTransform, Fade, Stagger } from 'react-animation-components';
     
     function RenderComments({comments}) {
-        const comm = comments.map((c)=>{
-            return(
-                <Stagger in>
-                        {comments.map((comment) => {
-                            return (
-                    <Fade in>
-                        <li key={c.id} >
-                            <p>{c.comment}</p>
-                            <p >--{c.author}, {moment(c.date).format("MMM DD, YYYY")}</p>
-                        </li>
-                    </Fade>
-                  );
-                })}
-                </Stagger>
-            );
-        });
 
         if (comments != null)
             return(
                 <ul className="list-unstyled">
-                    {comm}
+                    <Stagger in>
+                        {comments.map((comment) => {
+                            return (
+                                <Fade in>
+                                    <li key={comment.id} >
+                                        <p>{comment.comment}</p>
+                                        <p >--{comment.author}, {moment(comment.date).format("MMM DD, YYYY")}</p>
+                                    </li>
+                                </Fade>
+                            );
+                        })}
+                    </Stagger>
                 </ul>
             );
         else
