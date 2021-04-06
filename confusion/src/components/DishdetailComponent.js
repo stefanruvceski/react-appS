@@ -6,14 +6,23 @@ import {Loading} from './LoadingComponent';
 import '../App.css';
 import moment from 'moment'
 import {baseUrl} from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
     
     function RenderComments({comments}) {
         const comm = comments.map((c)=>{
             return(
-                <li key={c.id} >
-                    <p>{c.comment}</p>
-                    <p >--{c.author}, {moment(c.date).format("MMM DD, YYYY")}</p>
-                </li>
+                <Stagger in>
+                        {comments.map((comment) => {
+                            return (
+                    <Fade in>
+                        <li key={c.id} >
+                            <p>{c.comment}</p>
+                            <p >--{c.author}, {moment(c.date).format("MMM DD, YYYY")}</p>
+                        </li>
+                    </Fade>
+                  );
+                })}
+                </Stagger>
             );
         });
 
@@ -29,13 +38,19 @@ import {baseUrl} from '../shared/baseUrl';
 
     function RenderDish({dish}){
         return(
-            <Card>
-                <CardImg width="100%" src={baseUrl +dish.image} alt={dish.name}/>
-                <CardBody>
-                    <CardTitle className="bold">{dish.name}</CardTitle>
-                    <CardText>{dish.description}</CardText>
-                </CardBody>
-            </Card>
+            <FadeTransform
+                in
+                transformProps={{
+                    exitTransform: 'scale(0.5) translateY(-50%)'
+                }}>
+                <Card>
+                    <CardImg width="100%" src={baseUrl +dish.image} alt={dish.name}/>
+                    <CardBody>
+                        <CardTitle className="bold">{dish.name}</CardTitle>
+                        <CardText>{dish.description}</CardText>
+                    </CardBody>
+                </Card>
+            </FadeTransform>
         );
     }
     const required = (val) => val && val.length;

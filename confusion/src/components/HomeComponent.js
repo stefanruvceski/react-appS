@@ -1,6 +1,7 @@
 import {Card, CardImg, CardText, CardTitle,CardBody,CardSubtitle} from 'reactstrap'
 import {Loading} from './LoadingComponent';
 import {baseUrl} from '../shared/baseUrl';
+import { FadeTransform } from 'react-animation-components';
 
 function RenderCard({item,isLoading,errMessage}){
     console.log('Error: '+errMessage);
@@ -16,15 +17,21 @@ function RenderCard({item,isLoading,errMessage}){
     }
     else {
         return(
-            <Card>
-                <CardImg src={baseUrl+item.image} alt={item.name}/>
-                <CardBody >
-                    <CardTitle>{item.name}</CardTitle>
-                    {/* ako designation postoji kreiracemo CardSubtitle ako ne null znaci da nece biti elementa */}
-                    {item.designation ? <CardSubtitle>{item.designation}</CardSubtitle>:null}
-                    <CardText>{item.description}</CardText>
-                </CardBody>
-            </Card>
+            <FadeTransform
+            in
+            transformProps={{
+                exitTransform: 'scale(0.5) translateY(-50%)'
+            }}>
+                <Card>
+                    <CardImg src={baseUrl+item.image} alt={item.name}/>
+                    <CardBody >
+                        <CardTitle>{item.name}</CardTitle>
+                        {/* ako designation postoji kreiracemo CardSubtitle ako ne null znaci da nece biti elementa */}
+                        {item.designation ? <CardSubtitle>{item.designation}</CardSubtitle>:null}
+                        <CardText>{item.description}</CardText>
+                    </CardBody>
+                </Card>
+            </FadeTransform>
         );
     }
     
