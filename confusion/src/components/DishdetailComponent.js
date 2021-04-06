@@ -55,7 +55,7 @@ class DishDetail extends Component{
 
     handleSubmit(values){
         console.log("Current state is : " + JSON.stringify(values) + this.props.dishId)
-        this.props.addComment(this.props.dish.id, values.rating, values.name, values.comment);
+        this.props.postComment(this.props.dish.id, values.rating, values.name, values.comment);
         this.toggleModal();
     }
     toggleModal(){
