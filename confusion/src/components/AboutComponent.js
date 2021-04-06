@@ -71,7 +71,7 @@ function About(props) {
                                 </footer>
                             </blockquote>
                         </CardBody>
-                    </Card>
+                    </Card> 
                 </div>
             </div>
             <div className="row row-content">
