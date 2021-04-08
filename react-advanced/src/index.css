@@ -269,7 +269,7 @@ p {
   width: 100%;
   display: flex;
   align-items: center;
-  background: var(--clr-white);
+  background: #5077b6;
   padding: 1rem 2rem;
   border-radius: var(--radius);
   text-align: left;
@@ -284,7 +284,7 @@ p {
   margin-bottom: 0.15rem;
 }
 .users a {
-  color: var(--clr-grey-5);
+  color: rgb(185, 185, 185);
   text-transform: capitalize;
 }
 
