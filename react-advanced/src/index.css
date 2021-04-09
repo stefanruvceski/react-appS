@@ -255,10 +255,11 @@ p {
   margin: 0 auto;
   margin-bottom: 4rem;
   display: grid;
+  color: azure;
   grid-template-columns: repeat(3, 1fr);
 }
 .nav-links a {
-  color: var(--clr-grey-5);
+  color: azure;
 }
 .users {
   display: grid;
@@ -302,6 +303,7 @@ p {
 .product {
   background: var(--clr-white);
   border-radius: var(--radius);
+  color: #222;
 }
 .product img {
   border-top-left-radius: var(--radius);
