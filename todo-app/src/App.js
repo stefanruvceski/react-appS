@@ -13,7 +13,11 @@ function App() {
       </div>
     );
   } else if (current !== null) {
-    return <Details />;
+    return (
+      <div className="container bck fill mt-5">
+        <Details />
+      </div>
+    );
   } else {
     return (
       <div className="container bck fill">
